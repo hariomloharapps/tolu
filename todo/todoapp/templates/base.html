@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Todo App{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'todolist/css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'todolist/css/navbar.css' %}">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    borderRadius: {
+                        'max': '36px',
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-100">
+    <div id="content" class="container mx-auto px-4 py-8 mb-16">
+        {% block content %}{% endblock %}
+    </div>
+
+    <nav class="bottom-nav">
+        <a href="{% url 'home' %}" class="nav-item {% if request.resolver_match.url_name == 'home' %}active{% endif %}" data-page="home">
+            <i class="material-icons">home</i>
+            <span>Home</span>
+        </a>
+        <a href="{% url 'todo_list' %}" class="nav-item {% if request.resolver_match.url_name == 'todo_list' %}active{% endif %}" data-page="todo">
+            <i class="material-icons">check_circle</i>
+            <span>Todo</span>
+        </a>
+        <a href="{% url 'analytics' %}" class="nav-item {% if request.resolver_match.url_name == 'analytics' %}active{% endif %}" data-page="analytics">
+            <i class="material-icons">bar_chart</i>
+            <span>Analytics</span>
+        </a>
+        <a href="{% url 'settings' %}" class="nav-item {% if request.resolver_match.url_name == 'settings' %}active{% endif %}" data-page="settings">
+            <i class="material-icons">settings</i>
+            <span>Settings</span>
+        </a>
+    </nav>
+
+    <script src="{% static 'todolist/js/main.js' %}"></script>
+    <script src="{% static 'todolist/js/navbar.js' %}"></script>
+</body>
+</html>

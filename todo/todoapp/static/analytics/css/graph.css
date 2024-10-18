@@ -1,0 +1,154 @@
+        .graph-container {
+            width: 100%;
+            max-width: 800px;
+            background-color: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 20px auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .graph-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        #graph {
+            width: 100%;
+            height: auto;
+            max-height: 400px;
+        }
+
+        .line {
+            fill: none;
+            stroke-width: 4;
+            stroke-linecap: round;
+        }
+
+        .reference-line {
+            stroke-dasharray: 5, 5;
+            stroke-width: 1;
+        }
+
+        .reference-text {
+            font-size: 12px;
+            text-anchor: end;
+        }
+
+        .details-box {
+            fill: rgba(255, 255, 255, 0.95);
+            stroke: #333;
+            stroke-width: 1;
+            rx: 10;
+            ry: 10;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+            transition: all 0.3s ease;
+        }
+
+        .details-text {
+            font-size: 12px;
+            fill: #333;
+        }
+
+        .cursor-line {
+            stroke: #999;
+            stroke-width: 1;
+            stroke-dasharray: 3, 3;
+        }
+
+        .data-point {
+            fill: #fff;
+            stroke: #333;
+            stroke-width: 2;
+            transition: all 0.3s ease;
+        }
+
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            fill: #333;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .avg-percentage {
+            font-size: 24px;
+            font-weight: bold;
+            text-anchor: end;
+        }
+
+        @media (max-width: 600px) {
+            .graph-container {
+                padding: 18px;
+                border-radius: 15px;
+            }
+
+            #graph {
+                max-height: 300px;
+            }
+
+            .title {
+                font-size: 20px;
+            }
+
+            .reference-text {
+                font-size: 10px;
+            }
+
+            .details-text {
+                font-size: 10px;
+            }
+
+            .line {
+                stroke-width: 3;
+            }
+
+            .data-point {
+                r: 4;
+            }
+
+            .avg-percentage {
+                font-size: 20px;
+            }
+        }
+
+@media (max-width: 400px) {
+    .graph-container {
+        padding: 8px;
+    }
+
+    #graph {
+        max-height: 300px;
+    }
+
+    .title {
+        font-size: 58px;
+    }
+
+
+
+    .details-text {
+        font-size: 8px;
+    }
+
+    .line {
+        stroke-width: 4;
+    }
+
+    .data-point {
+        r: 3;
+    }
+    .reference-line {
+        stroke-dasharray: 8 ,8;
+        stroke-width: 3;
+    }
+    
+    .reference-text {
+        font-size: 24px;
+        text-anchor: end;
+    }
+
+            .avg-percentage {
+                font-size: 46px;
+            }
+        }

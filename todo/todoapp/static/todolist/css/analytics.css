@@ -1,0 +1,48 @@
+.graph-container {
+    width: 100%;
+    max-width: 800px;
+    background-color: white;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+}
+
+#analytics-graph {
+    width: 100%;
+    height: auto;
+    max-height: 300px;
+}
+
+.line {
+    fill: none;
+    stroke-width: 4;
+    stroke-linecap: round;
+}
+
+.click-area {
+    fill: none;
+    pointer-events: all;
+}
+
+.click-point {
+    fill: #ff0000;
+    stroke: #ffffff;
+    stroke-width: 2;
+}
+
+.details-box {
+    fill: rgba(255, 255, 255, 0.9);
+    stroke: #333;
+    stroke-width: 1;
+}
+
+.details-text {
+    font-size: 12px;
+}
+
+@media (max-width: 600px) {
+    .graph-container {
+        padding: 10px;
+    }
+}

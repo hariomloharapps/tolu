@@ -1,0 +1,225 @@
+{% load socialaccount %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Back</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&family=Poppins:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+    
+    <script>
+        function initiateGoogleLogin() {
+            var googleLoginUrl = "{% provider_login_url 'google' method='oauth2' %}";
+            window.location.href = googleLoginUrl;
+        }
+    </script>
+    
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+        body {
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+        }
+        .login-screen {
+            background-color: #ffffff;
+            border-radius: 14px;
+            padding: 40px 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 24px;
+            color: #202124;
+            margin-bottom: 30px;
+            font-weight: 500;
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+        }
+        .input-group {
+            position: relative;
+            margin-bottom: 24px;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 12px 16px 12px 40px;
+            border: 1px solid #e0e0e0;
+            border-radius: 14px;
+            font-size: 16px;
+            color: #202124;
+            transition: all 0.3s ease;
+        }
+        .input-group input:focus {
+            outline: none;
+            border-color: #000000;
+            box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+        }
+        .input-group input::placeholder {
+            color: #5f6368;
+        }
+        .input-group .material-icons {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #5f6368;
+        }
+        .input-group .toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #5f6368;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .input-group .toggle-password:hover {
+            color: #202124;
+        }
+        .forgot-password {
+            text-align: left;
+            margin: 8px 0 16px;
+        }
+        .forgot-password a {
+            color: #1a73e8;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #000000;
+            color: #ffffff;
+            border: none;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .login-btn:hover {
+            background-color: #333333;
+        }
+        .signup-link {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 14px;
+            color: #5f6368;
+        }
+        .signup-link a {
+            color: #1a73e8;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 24px 0;
+        }
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .divider span {
+            padding: 0 10px;
+            color: #5f6368;
+            font-size: 14px;
+        }
+        .social-login {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 24px;
+        }
+        .social-btn {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 14px;
+            background-color: #ffffff;
+            color: #202124;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .social-btn:first-child {
+            margin-right: 12px;
+        }
+        .social-btn:hover {
+            background-color: #f5f5f5;
+        }
+        .social-btn i {
+            margin-right: 8px;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        .shake {
+            animation: shake 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="login-screen">
+            <h1>Welcome back</h1>
+            <form method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+                <div class="input-group">
+                    <span class="material-icons">email</span>
+                    <input type="email" id="email" name="email" placeholder="Email" required>
+                </div>
+                <div class="input-group">
+                    <span class="material-icons">lock</span>
+                    <input type="password" id="password" name="password" placeholder="Password" required>
+                </div>
+                <div class="forgot-password">
+                    <a href="/docs/termsandconditons">Terms & Conditions </a>
+                </div>
+                <button type="submit" class="login-btn">Login</button>
+            </form>
+            <div class="divider">
+                <span>or</span>
+            </div>
+            <div class="social-login">
+                <button onclick="initiateGoogleLogin()" class="social-btn">
+                    <i class="fab fa-google"></i> Google
+                </button>
+                <button class="social-btn">
+                    <i class="fab fa-apple"></i> Apple
+                </button>
+            </div>
+      
+        </div>
+    </div>
+    {% if messages %}
+    <script>
+        {% for message in messages %}
+            alert("{{ message }}");
+        {% endfor %}
+    </script>
+    {% endif %}
+</body>
+</html>

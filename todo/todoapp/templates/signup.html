@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        /* ... (keep the existing styles) ... */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="signup-screen" id="signupScreen">
+            <div class="logo-container">
+                <img src="/static/id.png" alt="Logo">
+            </div>
+            <div class="title-container">
+                <h1>Create Account</h1>
+            </div>
+            <form id="signupForm">
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                </div>
+                <div class="terms-checkbox">
+                    <input type="checkbox" id="terms" name="terms" required>
+                    <label for="terms">I agree to the <a href="/docs/termsandconditons/" class="terms-link">Terms and Conditions</a></label>
+                </div>
+                <button type="submit" class="btn">Sign Up</button>
+            </form>
+            <div class="login-link">
+                Already have an account? <a href="/login/">Log In</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+// Notification class
+        class Notification {
+            constructor() {
+                this.notification = null;
+                this.timeout = null;
+            }
+
+            show(message, duration = 3000) {
+                if (this.notification) {
+                    this.hide();
+                }
+
+                this.notification = document.createElement('div');
+                this.notification.className = 'notification';
+                this.notification.innerHTML = `
+                    ${message}
+                    <button class="notification-close" aria-label="Close notification">
+                        <span class="material-icons">close</span>
+                    </button>
+                `;
+
+                document.body.appendChild(this.notification);
+
+                // Trigger reflow to enable transition
+                this.notification.offsetHeight;
+
+                this.notification.classList.add('show');
+
+                this.notification.querySelector('.notification-close').addEventListener('click', () => this.hide());
+
+                clearTimeout(this.timeout);
+                this.timeout = setTimeout(() => this.hide(), duration);
+            }
+
+            hide() {
+                if (this.notification) {
+                    this.notification.classList.add('hide');
+                    this.notification.classList.remove('show');
+                    setTimeout(() => {
+                        if (this.notification && this.notification.parentNode) {
+                            this.notification.parentNode.removeChild(this.notification);
+                        }
+                        this.notification = null;
+                    }, 500); // Match the animation duration
+                }
+            }
+        }
+
+        const notification = new Notification();
+        // Form submission
+        const signupForm = document.getElementById('signupForm');
+        const termsCheckbox = document.querySelector('.terms-checkbox');
+
+        signupForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const termsAgreed = document.getElementById('terms').checked;
+            
+            if (!termsAgreed) {
+                termsCheckbox.classList.add('error');
+                notification.show('Please agree to the Terms and Conditions');
+                return;
+            }
+            
+            if (email && password && termsAgreed) {
+                // Disable the submit button to prevent multiple submissions
+                const submitButton = this.querySelector('button[type="submit"]');
+                submitButton.disabled = true;
+
+                fetch('/signup/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: `email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        notification.show('Account created successfully! Redirecting to home page...');
+                        // Redirect to home page
+                        window.location.href = '/';
+                    } else {
+                        notification.show(data.message || 'An error occurred');
+                        // Re-enable the submit button on error
+                        submitButton.disabled = false;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    notification.show('An error occurred. Please try again.');
+                    // Re-enable the submit button on error
+                    submitButton.disabled = false;
+                });
+            }
+        });
+
+        document.getElementById('terms').addEventListener('change', function() {
+            if (this.checked) {
+                termsCheckbox.classList.remove('error');
+            }
+        });
+    </script>
+</body>
+</html>

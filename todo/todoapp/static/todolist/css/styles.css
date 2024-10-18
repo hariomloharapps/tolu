@@ -1,0 +1,177 @@
+/* Existing styles */
+body {
+    padding-bottom: 60px;
+}
+
+/* Bottom Navigation Bar */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: white;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    height: 60px; /* Fixed height for the navigation bar */
+}
+
+/* Navigation Items */
+.bottom-nav .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    width: 25%; /* Equal width for each nav item */
+    height: 100%; /* Full height of the nav bar */
+}
+
+/* Navigation Icons */
+.bottom-nav .nav-item .nav-icon {
+    width: 24px; /* Fixed width for icons */
+    height: 24px; /* Fixed height for icons */
+    margin-bottom: 4px;
+}
+
+/* Navigation Text */
+.bottom-nav .nav-item span {
+    font-size: 12px;
+    text-align: center;
+}
+
+/* Active Navigation Item */
+.bottom-nav .nav-item.active {
+    color: #000;
+    transform: translateY(-5px);
+}
+
+/* Hover effect for inactive items */
+.bottom-nav .nav-item:not(.active):hover {
+    color: #666;
+}
+
+.page-content {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.page-content.active {
+    opacity: 1;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.todo-item {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* ... (previous styles remain the same) ... */
+
+.add-todo-button {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    background-color: #000000; /* Changed to black */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.add-todo-button:hover {
+    transform: scale(1.1);
+    background-color: #333333; /* Slightly lighter on hover for feedback */
+}
+
+.add-todo-button svg {
+    width: 24px;
+    height: 24px;
+    fill: white;
+}
+
+/* ... (rest of the styles remain the same) ... */
+
+.add-todo-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    background-color: white;
+    border-radius: 24px;
+    padding: 24px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.add-todo-modal.active {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+    visibility: visible;
+}
+
+.add-todo-modal input,
+.add-todo-modal select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.add-todo-modal input:focus,
+.add-todo-modal select:focus {
+    border-color: #4CAF50;
+    outline: none;
+}
+
+.add-todo-modal button {
+    width: 100%;
+    padding: 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-todo-modal button:hover {
+    background-color: #45a049;
+}
+
+@keyframes modalOpen {
+    from {
+        transform: translate(-50%, -50%) scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+}
+
+.add-todo-modal.active {
+    animation: modalOpen 0.3s forwards;
+}
+
+

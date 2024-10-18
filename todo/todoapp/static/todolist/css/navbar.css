@@ -1,0 +1,125 @@
+/* Base styles for bottom navigation */
+.bottom-nav {
+    position: fixed;
+    z-index: 9999;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: white;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    height: 60px;
+}
+
+/* Navigation item styles */
+.nav-item {
+    display: flex;
+    z-index: 9999;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    width: 25%;
+    height: 100%;
+}
+
+/* Navigation icon container */
+.nav-icon-container {
+    z-index: 9999;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* Base styles for all navigation icons */
+.nav-icon {
+    z-index: 9999;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Individual icon sizes - adjust as needed */
+.nav-item[data-page="home"] .nav-icon { width: 24px; height: 24px; }
+.nav-item[data-page="todo"] .nav-icon { width: 26px; height: 26px; }
+.nav-item[data-page="analytics"] .nav-icon { width: 28px; height: 28px; }
+.nav-item[data-page="settings"] .nav-icon { width: 25px; height: 25px; }
+
+/* Active state for navigation items */
+.nav-item.active {
+    color: #000;
+    transform: translateY(-5px);
+}
+
+.nav-item.active .nav-icon-1 {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+}
+
+.nav-item.active .nav-icon-2 {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Inactive state for navigation icons */
+.nav-item:not(.active) .nav-icon-1 {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.nav-item:not(.active) .nav-icon-2 {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+}
+
+/* Hover effect for inactive items */
+.nav-item:not(.active):hover {
+    color: #666;
+}
+
+/* Animation for icon switch */
+@keyframes iconSwitch {
+    0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    50% { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+    100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+
+.nav-item.animating .nav-icon-1,
+.nav-item.animating .nav-icon-2 {
+    animation: iconSwitch 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+    .bottom-nav {
+        height: 80px;
+    }
+    
+    .nav-item[data-page="home"] .nav-icon { width: 36px; height: 36px; }
+    .nav-item[data-page="todo"] .nav-icon { width: 32px; height: 32px; }
+    .nav-item[data-page="analytics"] .nav-icon { width: 34px; height: 34px; }
+    .nav-item[data-page="settings"] .nav-icon { width: 36px; height: 36px; }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+    .bottom-nav {
+        height: 55px;
+    }
+    
+    .nav-item[data-page="home"] .nav-icon { width: 22px; height: 22px; }
+    .nav-item[data-page="todo"] .nav-icon { width: 24px; height: 24px; }
+    .nav-item[data-page="analytics"] .nav-icon { width: 26px; height: 26px; }
+    .nav-item[data-page="settings"] .nav-icon { width: 23px; height: 23px; }
+}

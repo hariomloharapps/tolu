@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>HumanWebDev | Tolu App</title>
+  <style>
+    /* General Styling */
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #ffffff;
+      color: #000000;
+      box-sizing: border-box;
+      overflow-x: hidden;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Layout Structure */
+    header, section, footer {
+      padding: 30px 15px;
+      text-align: center;
+    }
+
+    /* Header (Hero Section) */
+    header {
+      background-color: #000;
+      color: #fff;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    header h1 {
+      font-size: 2em;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      font-size: 1em;
+      margin-bottom: 20px;
+    }
+
+    .cta-btn {
+      background-color: #fff;
+      color: #000;
+      padding: 10px 20px;
+      border-radius: 14px;
+      border: 2px solid #000;
+      text-decoration: none;
+      font-size: 1em;
+      font-weight: bold;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+
+    .cta-btn:hover {
+      background-color: #f2f2f2;
+    }
+
+    /* Section Styling */
+    .section-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* App Promotion Section */
+    .app-section {
+      background-color: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 14px;
+      padding: 25px 15px;
+      margin: 20px 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .app-section h2 {
+      font-size: 1.8em;
+      margin-bottom: 15px;
+    }
+
+    .app-section p {
+      font-size: 1em;
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    /* Cards for Available/Coming Soon */
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .card {
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 14px;
+      padding: 20px;
+      width: 100%;
+      max-width: 300px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      transition: box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .card h3 {
+      font-size: 1.3em;
+      margin-bottom: 15px;
+    }
+
+    .card p {
+      font-size: 0.9em;
+      color: #666;
+      margin-bottom: 15px;
+    }
+
+    /* Available & Coming Soon Cards */
+    .available {
+      background-color: #e0ffe0;
+      border-color: #28a745;
+    }
+
+    .coming-soon {
+      background-color: #ffefc5;
+      border-color: #ff9800;
+    }
+
+    .status-label {
+      display: inline-block;
+      padding: 5px 10px;
+      background-color: #000;
+      color: #fff;
+      border-radius: 14px;
+      font-size: 0.8em;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    /* Terms & Conditions */
+    .terms {
+      padding: 25px 15px;
+      background-color: #fafafa;
+      border-top: 1px solid #ddd;
+    }
+
+    .terms p {
+      font-size: 0.9em;
+    }
+
+    .terms a {
+      color: #000;
+      text-decoration: none;
+      font-weight: bold;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.2s;
+    }
+
+    .terms a:hover {
+      border-color: #000;
+    }
+
+    /* Footer CTA */
+    footer {
+      background-color: #000;
+      color: #fff;
+      box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    footer p {
+      font-size: 1.3em;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    footer .cta-btn {
+      background-color: #fff;
+      color: #000;
+      padding: 10px 20px;
+      border-radius: 14px;
+      text-transform: uppercase;
+      font-weight: bold;
+      border: none;
+      transition: all 0.3s ease;
+    }
+
+    footer .cta-btn:hover {
+      background-color: #f2f2f2;
+    }
+
+    /* Responsive Media Queries */
+    @media (min-width: 576px) {
+      header, section, footer {
+        padding: 40px 20px;
+      }
+
+      .card {
+        width: calc(50% - 10px);
+      }
+    }
+
+    @media (min-width: 768px) {
+      header, section, footer {
+        padding: 60px 40px;
+      }
+
+      header h1 {
+        font-size: 2.5em;
+      }
+
+      header p {
+        font-size: 1.2em;
+      }
+
+      .cta-btn {
+        padding: 12px 30px;
+        font-size: 1.1em;
+      }
+
+      .app-section h2 {
+        font-size: 2.2em;
+      }
+
+      .app-section p {
+        font-size: 1.1em;
+      }
+    }
+
+    @media (min-width: 992px) {
+      header, section, footer {
+        padding: 80px 60px;
+      }
+
+      .card {
+        width: calc(33.33% - 13.33px);
+      }
+
+      .app-section {
+        padding: 40px 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero Section -->
+  <header>
+    <h1>HumanWebDev</h1>
+    <p>Bringing powerful digital solutions to life.</p>
+    <a href="/" class="cta-btn">Explore Tolu App</a>
+  </header>
+
+  <!-- App Section: Available and Coming Soon -->
+  <section class="section-container">
+    <!-- Available Now Section -->
+    <div class="app-section" id="available-now">
+      <h2>Available Now: Tolu App</h2>
+      <p>Experience the best productivity app to manage your tasks, stay organized, and gain insights with advanced analytics.</p>
+      <div class="card-container">
+        <div class="card available">
+          <h3>Tolu App</h3>
+          <p>Organize your tasks efficiently and track your progress with insightful analytics.</p>
+          <span class="status-label">Available Now</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Coming Soon Section -->
+    <div class="app-section" id="coming-soon">
+      <h2>Coming Soon</h2>
+      <p>Stay tuned for our upcoming features and mobile application that will enhance your productivity and daily life.</p>
+      <div class="card-container">
+        <!-- New Features -->
+        <div class="card coming-soon">
+          <h3>New Features</h3>
+          <p>Exciting new functionalities to improve task management and user analytics.</p>
+          <span class="status-label">Coming Soon</span>
+        </div>
+
+        <!-- Mobile Application -->
+        <div class="card coming-soon">
+          <h3>Mobile Application</h3>
+          <p>Get the power of Tolu on the go with our upcoming mobile app, available for iOS and Android.</p>
+          <span class="status-label">Coming Soon</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Terms & Conditions Section -->
+  <section class="terms">
+    <p>By using Tolu App, you agree to our <a href="/docs/termsandconditons/">Terms and Conditions</a>.</p>
+  </section>
+
+  <!-- Footer Section with CTA -->
+
+</body>
+</html>

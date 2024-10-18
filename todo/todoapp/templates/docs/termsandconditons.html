@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo Web App - Terms and Conditions</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #ecf0f1;
+            --accent-color: #3498db;
+            --text-color: #34495e;
+            --transition-speed: 0.3s;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--secondary-color);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            color: var(--primary-color);
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .header.hidden {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .container {
+            margin-top: 100px;
+        }
+
+        h1 {
+            font-size: clamp(36px, 5vw, 48px);
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            text-align: center;
+        }
+
+        .subtitle {
+            font-size: clamp(16px, 3vw, 18px);
+            color: var(--text-color);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .general-terms {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .accordion {
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .accordion-item {
+            border-bottom: 1px solid var(--secondary-color);
+        }
+
+        .accordion-item:last-child {
+            border-bottom: none;
+        }
+
+        .accordion-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            cursor: pointer;
+            transition: background-color var(--transition-speed);
+        }
+
+        .accordion-header:hover {
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+
+        .accordion-title {
+            font-weight: 600;
+            font-size: 18px;
+            color: var(--primary-color);
+        }
+
+        .accordion-icon {
+            width: 24px;
+            height: 24px;
+            transition: transform var(--transition-speed);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
+            padding: 0 40px;
+        }
+
+        .accordion-item.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-item.active .accordion-content {
+            padding: 20px;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .fade-in.appear {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">Terms & Conditions</div>
+    </header>
+
+    <div class="container">
+
+        <div class="general-terms fade-in">
+            <h2>General Terms</h2>
+            <p>Welcome to the ToDo Web App. By using our service, you agree to abide by these terms and conditions. Our App is designed to help you manage your tasks efficiently while ensuring your privacy and data security. Please read these terms carefully before using the App.</p>
+        </div>
+
+        <div class="accordion">
+            <div class="accordion-item fade-in">
+                <div class="accordion-header">
+                    <span class="accordion-title">1. Acceptance of Terms</span>
+                    <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </div>
+                <div class="accordion-content">
+                    <p>By accessing and using the ToDo web app (the "App"), you agree to comply with these terms and conditions. If you do not agree, you must discontinue using the App.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item fade-in">
+                <div class="accordion-header">
+                    <span class="accordion-title">2. Account Creation and Security</span>
+                    <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </div>
+                <div class="accordion-content">
+                    <p>Users are responsible for maintaining the confidentiality of their account details and password. The App reserves the right to suspend or terminate accounts in case of suspicious activity or violation of terms.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item fade-in">
+                <div class="accordion-header">
+                    <span class="accordion-title">3. Use of the App</span>
+                    <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </div>
+                <div class="accordion-content">
+                    <p>Users may create, edit, and manage to-do lists and access the analytics features. The App is provided for personal and non-commercial use only. Misuse of the App, such as hacking or reverse-engineering, is prohibited.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item fade-in">
+                <div class="accordion-header">
+                    <span class="accordion-title">4. User Data and Privacy</span>
+                    <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </div>
+                <div class="accordion-content">
+                    <p>The App collects data related to tasks, analytics, and app usage. Your personal data will not be shared with third parties without your consent. For more details, refer to our Privacy Policy.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item fade-in">
+                <div class="accordion-header">
+                    <span class="accordion-title">5. Intellectual Property</span>
+                    <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </div>
+                <div class="accordion-content">
+                    <p>All designs, content, and code associated with the App are the property of HumanWebDev. Users may not reproduce or distribute any part of the App without permission.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item fade-in">
+                <div class="accordion-header">
+                    <span class="accordion-title">6. Limitations of Liability</span>
+                    <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </div>
+                <div class="accordion-content">
+                    <p>The App is provided "as is" without warranties of any kind. We are not liable for any errors or interruptions in service. HumanWebDev is not responsible for any loss of data, productivity, or any indirect damages caused by the use of the App.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item fade-in">
+                <div class="accordion-header">
+                    <span class="accordion-title">7. Modifications to the App</span>
+                    <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </div>
+                <div class="accordion-content">
+                    <p>HumanWebDev reserves the right to modify or discontinue any part of the App at any time without notice.</p>
+                </div>
+            </div>
+
+            <div class="accordion-item fade-in">
+                <div class="accordion-header">
+                    <span class="accordion-title">8. Termination</span>
+                    <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </div>
+                <div class="accordion-content">
+                    <p>We reserve the right to suspend or terminate user access to the App for any violation of these terms.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Header visibility control
+        let lastScrollTop = 0;
+        const header = document.querySelector('.header');
+        const scrollThreshold = 50;
+
+        window.addEventListener('scroll', () => {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (Math.abs(scrollTop - lastScrollTop) > scrollThreshold) {
+                if (scrollTop > lastScrollTop && scrollTop > header.offsetHeight) {
+                    // Scrolling down
+                    header.classList.add('hidden');
+                } else {
+                    // Scrolling up
+                    header.classList.remove('hidden');
+                }
+                lastScrollTop = scrollTop;
+            }
+        }, { passive: true });
+
+        // Accordion functionality
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const item = header.parentElement;
+                const isActive = item.classList.contains('active');
+
+                // Close all accordion items
+                document.querySelectorAll('.accordion-item').forEach(accordionItem => {
+                    accordionItem.classList.remove('active');
+                    const content = accordionItem.querySelector('.accordion-content');
+                    content.style.maxHeight = null;
+                });
+
+                // If the clicked item wasn't active, open it
+                if (!isActive) {
+                    item.classList.add('active');
+                    const content = item.querySelector('.accordion-content');
+                    content.style.maxHeight = content.scrollHeight + "px";
+                    
+                    // Scroll the content into view
+                    setTimeout(() => {
+                        content.scrollIntoView({behavior: 'smooth', block: 'nearest'});
+                    }, 300);
+                }
+            });
+        });
+
+        // Scroll animation for fade-in elements
+        const fadeElems = document.querySelectorAll('.fade-in');
+        const footer = document.createElement('div');
+        footer.style.height = '1px';
+        document.body.appendChild(footer);
+
+        const appearOptions = {
+            threshold: 0,
+            rootMargin: "0px 0px -20px 0px"
+        };
+
+        const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) {
+                    return;
+                } else {
+                    entry.target.classList.add('appear');
+                    appearOnScroll.unobserve(entry.target);
+                }
+            });
+        }, appearOptions);
+
+        fadeElems.forEach(elem => {
+            appearOnScroll.observe(elem);
+        });
+
+        // Ensure last item is visible
+        appearOnScroll.observe(footer);
+
+        // Adjust accordion content height on window resize
+        window.addEventListener('resize', () => {
+            const activeItem = document.querySelector('.accordion-item.active');
+            if (activeItem) {
+                const content = activeItem.querySelector('.accordion-content');
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f4f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #1f2937;
+        }
+        .container {
+            justify-content: center;
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            position: relative;
+        }
+        .signup-screen, .password-screen {
+            background-color: #ffffff;
+            border-radius: 16px;
+            padding: 40px 30px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+        }
+        .signup-screen.hide {
+            transform: translateX(-100%);
+            opacity: 0;
+        }
+        .password-screen {
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            right: 20px;
+            transform: translateY(-50%) translateX(100%);
+            opacity: 0;
+        }
+        .password-screen.show {
+            transform: translateY(-50%) translateX(0);
+            opacity: 1;
+        }
+        .logo-container {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+ 
+            border-radius: 14px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .logo-container img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        .title-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            position: relative;
+        }
+        .back-icon {
+            position: absolute;
+            left: 0;
+            font-size: 24px;
+            color: #4b5563;
+            cursor: pointer;
+        }
+        h1 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #111827;
+            text-align: center;
+        }
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #4b5563;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 16px;
+            color: #202124;
+            transition: all 0.3s ease;
+        }
+        .input-group input:focus {
+            outline: none;
+            border-color: #000000;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        .input-group input::placeholder {
+            color: #9ca3af;
+        }
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #000000;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #333333;
+        }
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #4b5563;
+        }
+        .login-link a {
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 24px 0;
+        }
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .divider span {
+            padding: 0 10px;
+            color: #6b7280;
+            font-size: 14px;
+        }
+        .social-signup {
+            display: flex;
+            justify-content: space-between;
+        }
+        .social-btn {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            background-color: #ffffff;
+            color: #1f2937;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .social-btn:first-child {
+            margin-right: 12px;
+        }
+        .social-btn:hover {
+            background-color: #f9fafb;
+        }
+        .social-btn i {
+            margin-right: 8px;
+        }
+        .terms-checkbox {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .terms-checkbox input[type="checkbox"] {
+            margin-right: 10px;
+            width: 16px;
+            height: 16px;
+            accent-color: #000000;
+        }
+        .terms-checkbox.error input[type="checkbox"] {
+            accent-color: #dc2626;
+        }
+        .terms-checkbox label {
+            font-size: 12px;
+            color: #4b5563;
+            line-height: 1.2;
+        }
+        .terms-checkbox.error label {
+            color: #dc2626;
+        }
+        .terms-link {
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        
+        
+        
+        @media (max-width: 400px) {
+    body {
+        align-items: center;
+        padding: 20px;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 100%;
+        padding: 0;
+    }
+
+    .signup-screen, .password-screen {
+        padding: 30px 20px;
+    }
+
+    .password-screen {
+        position: fixed;
+
+        justify-content: center;
+    }
+
+
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="signup-screen" id="signupScreen">
+            <div class="logo-container">
+                <img src="/static/id.png" alt="Logo">
+            </div>
+            <div class="title-container">
+                <h1>Create Account</h1>
+            </div>
+            <form id="emailForm">
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+                <div class="terms-checkbox">
+                    <input type="checkbox" id="terms" name="terms" required>
+                    <label for="terms">I agree to the <a href="/#/" class="terms-link">Terms and Conditions</a></label>
+                </div>
+                <button type="submit" class="btn">Sign Up</button>
+            </form>
+            <div class="divider">
+                <span>or</span>
+            </div>
+            <div class="social-signup">
+                <button onclick="initiateGoogleSignup()" class="social-btn">
+                    <i class="fab fa-google"></i> Google
+                </button>
+                <button class="social-btn">
+                    <i class="fab fa-apple"></i> Apple
+                </button>
+            </div>
+            <div class="login-link">
+                Already have an account? <a href="#">Log In</a>
+            </div>
+        </div>
+        
+        <div class="password-screen" id="passwordScreen">
+            <div class="title-container">
+                <i class="material-icons back-icon" id="backButton">arrow_back</i>
+                <h1>Set Password</h1>
+            </div>
+            <form id="passwordForm">
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                </div>
+                <div class="input-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" required>
+                </div>
+                <button type="submit" class="btn">Set Password</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const signupScreen = document.getElementById('signupScreen');
+        const passwordScreen = document.getElementById('passwordScreen');
+        const backButton = document.getElementById('backButton');
+        const termsCheckbox = document.querySelector('.terms-checkbox');
+
+        function initiateGoogleSignup() {
+            console.log("Google signup initiated");
+        }
+
+        function showPasswordScreen() {
+            signupScreen.classList.add('hide');
+            passwordScreen.classList.add('show');
+        }
+
+        function showSignupScreen() {
+            signupScreen.classList.remove('hide');
+            passwordScreen.classList.remove('show');
+        }
+
+        document.getElementById('emailForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const termsAgreed = document.getElementById('terms').checked;
+            
+            if (!termsAgreed) {
+                termsCheckbox.classList.add('error');
+                return;
+            }
+            
+            if (email && termsAgreed) {
+                showPasswordScreen();
+            }
+        });
+
+        document.getElementById('terms').addEventListener('change', function() {
+            if (this.checked) {
+                termsCheckbox.classList.remove('error');
+            }
+        });
+
+        document.getElementById('passwordForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (password !== confirmPassword) {
+                alert("Passwords do not match");
+                return;
+            }
+            
+            if (password && confirmPassword) {
+                console.log("Password set");
+                // Here you would typically send the data to your server
+            }
+        });
+
+        backButton.addEventListener('click', showSignupScreen);
+    </script>
+</body>
+</html>

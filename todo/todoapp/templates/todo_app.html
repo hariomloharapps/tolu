@@ -1,0 +1,461 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
+
+    <link rel="stylesheet" href="{% static 'todolist/css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'todolist/css/new.css' %}">
+    <link rel="stylesheet" href="{% static 'todolist/css/todo.css' %}">
+    <link rel="stylesheet" href="{% static 'settings/css/settings.css' %}">
+
+
+    <link rel="stylesheet" href="{% static 'todolist/css/dropdown.css' %}">
+
+    <link rel="stylesheet" href="{% static 'todolist/fonts.css' %}">
+    
+    <link rel="stylesheet" href="{% static 'analytics/css/graph.css' %}">
+    
+    <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    borderRadius: {
+                        'max': '16px',
+                    },
+                    fontFamily: {
+                        'roboto': ['Roboto', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+
+<style>
+/* Todo list styles */
+.default-todo-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.default-todo-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.default-todo-title {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.default-todo-actions {
+    display: flex;
+    align-items: center;
+}
+
+.default-todo-info-icon,
+.default-todo-delete-icon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: opacity 0.3s ease;
+}
+
+.default-todo-info-icon:hover,
+.default-todo-delete-icon:hover {
+    opacity: 0.7;
+}
+
+/* Modal styles */
+.default-todo-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.default-todo-modal.show {
+    opacity: 1;
+}
+
+.default-todo-modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 30px;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    transform: scale(0.7);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.default-todo-modal.show .default-todo-modal-content {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.default-todo-modal-close {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.default-todo-modal-close:hover,
+.default-todo-modal-close:focus {
+    color: #000;
+}
+
+.default-todo-modal-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.default-todo-modal-description {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #555;
+    margin-bottom: 20px;
+    text-align: center;
+    max-height: 200px;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+.default-todo-modal-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #666;
+    margin-top: 20px;
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+}
+
+@media (max-width: 640px) {
+    .default-todo-item {
+        padding: 12px;
+    }
+    .default-todo-title {
+        font-size: 16px;
+    }
+    .default-todo-info-icon,
+    .default-todo-delete-icon {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+
+/* Todo list item styles */
+/* Todo list item styles */
+.default-todo-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.default-todo-title {
+    flex-grow: 1;
+    font-size: 18px;
+    font-weight: 500;
+
+    margin: 0 0px; 
+    margin-right: 20px ;/* Add space on both sides of the title */
+}
+
+.default-todo-actions {
+    display: flex;
+    align-items: center;
+}
+
+.default-todo-info-icon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.default-todo-info-icon:hover {
+    opacity: 0.7;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+    .default-todo-item {
+        padding: 12px;
+    }
+    .default-todo-title {
+        font-size: 18px;
+        margin-right: 15px;
+        margin: 0 0px; /* Reduce side margins on smaller screens */
+    }
+    .default-todo-info-icon {
+        width: 20px;
+        height: 20px;
+    }
+}
+.default-todo-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.default-todo-title {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.default-todo-actions {
+    display: flex;
+    align-items: center;
+}
+
+.default-todo-info-icon,
+.default-todo-delete-icon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: opacity 0.3s ease;
+}
+
+.default-todo-info-icon:hover,
+.default-todo-delete-icon:hover {
+    opacity: 0.7;
+}
+
+
+
+.default-todo-info-icon:hover {
+    opacity: 0.7;
+}
+
+/* Smooth transition for delete action */
+.default-todo-item.deleting {
+    opacity: 0;
+    transform: translateX(100%);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+</style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    </head>
+<body class="bg-gray-100 font-roboto">
+    <div id="app" class="container mx-auto px-4 py-6 mb-20">
+        
+        <div id="home-content" class="page-content">
+            <h1 class="text-3xl poppins-bold" >Welcome to Todo App</h1>
+            <p class="text-base text-gray-600">This is your personal task management application. Use the navigation bar below to access different sections of the app.</p>
+        </div>
+        
+        
+        
+        
+        <div id="todo-content" class="page-content">
+            <div class="flex justify-between items-center mb-4">
+                <h1 class="text-3xl poppins-bold">Todo List</h1>
+                <div class="filter-dropdown">
+                    <button id="filterToggle" class="filter-toggle">
+                        <span id="filterIcon" class="filter-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clip-rule="evenodd" />
+                            </svg>
+                        </span>
+                        <span id="filterClear" class="filter-clear hidden">&times;</span>
+                        <span id="filterText" class="text-sm  Nunito-medium">Get</span>
+                        <span id="selectedFilter" class="selected-filter hidden text-sm  Nunito-medium"></span>
+                    </button>
+                    <div id="filterMenu" class="filter-menu">
+                        <div class="filter-item" data-value="week">Week</div>
+                        <div class="filter-item" data-value="month">Month</div>
+                    </div>
+                </div>
+            </div>
+            <div id="all-todos" class="todo-section">
+                <div id="todo-list" class="space-y-3">
+                    {% for todo in todos %}
+                    <div class="todo-item" data-id="{{ todo.id }}">
+                        <div class="todo-content">
+                            <label class="checkbox-container">
+                                <input type="checkbox" {% if todo.completed %}checked{% endif %}>
+                                <svg viewBox="0 0 64 64" width="25" height="25">
+                                    <path d="M 0 16 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 16 L 32 48 L 64 16 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 16" pathLength="575.0541381835938" class="checkbox-path"></path>
+                                </svg>
+                            </label>
+                            <span class="todo-title nunito-semibold">{{ todo.title }}</span>
+                            <img src="{% static 'info.svg' %}" alt="Info" class="info-icon" onclick="getTodoDetails({{ todo.id }})">
+                        </div>
+                        <div class="delete-btn">Delete</div>
+                    </div>
+                    {% empty %}
+                    <p class="text-gray-600">No todos yet. Add some tasks!</p>
+                    {% endfor %}
+                </div>
+            </div>
+            <div id="week-todos" class="todo-section hidden">
+                <div id="week-todo-list" class="space-y-3"></div>
+            </div>
+            <div id="month-todos" class="todo-section hidden">
+                <div id="month-todo-list" class="space-y-3"></div>
+            </div>
+        </div>
+        
+        
+        <div id="analytics-content" class="page-content hidden">
+            <h1 class="text-3xl poppins-bold mb-8">Analytics</h1>
+            
+            <div class="flex space-x-6">
+                <!-- 30 Days Box -->
+                <div class="flex-1 bg-black text-white rounded-2xl p-6 relative overflow-hidden h-15">
+                    <span class="absolute top-3 left-3 text-xs opacity-50">30 days</span>
+                    <div class="flex flex-col items-center justify-center h-full">
+                        <span class="text-4xl font-bold" id="ranking30d">#0</span>
+                    </div>
+                    <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-purple-500"></div>
+                </div>
+        
+                <!-- 7 Days Box -->
+                <div class="flex-1 bg-black text-white rounded-2xl p-6 relative overflow-hidden h-15">
+                    <span class="absolute top-3 left-3 text-xs opacity-50">7 days</span>
+                    <div class="flex flex-col items-center justify-center h-full">
+                        <span class="text-4xl font-bold" id="ranking7d">#0</span>
+                    </div>
+                    <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-green-500 to-yellow-500"></div>
+                </div>
+            </div>
+
+            <!-- New Graph Section -->
+            <div class="graph-container mt-8 mb-12">
+                <svg id="graph-30days" viewBox="0 0 1000 490" preserveAspectRatio="xMidYMid meet">
+                    <defs>
+                        <linearGradient id="line-gradient-30days" gradientUnits="userSpaceOnUse">
+                            <!-- Gradient stops will be dynamically added here -->
+                        </linearGradient>
+                        <filter id="glow">
+                            <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+                            <feMerge>
+                                <feMergeNode in="coloredBlur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>
+                </svg>
+            </div>
+        
+            <!-- 7 Days Graph -->
+            <div class="graph-container mt-8">
+                <svg id="graph-7days" viewBox="0 0 1000 490" preserveAspectRatio="xMidYMid meet">
+                    <defs>
+                        <linearGradient id="line-gradient-7days" gradientUnits="userSpaceOnUse">
+                            <!-- Gradient stops will be dynamically added here -->
+                        </linearGradient>
+                        <filter id="glow">
+                            <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+                            <feMerge>
+                                <feMergeNode in="coloredBlur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>
+                </svg>
+            </div>
+        </div>
+            
+            
+        <div id="settings-content" class="page-content hidden">
+                <h1 class="text-3xl poppins-bold" >Settings</h1>
+                
+    </div>
+    
+    
+    <div id="todoDetailsModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle" class="modal-title"></h2>
+            <p id="modalDescription" class="modal-description"></p>
+            <div class="modal-meta">
+                <p id="modalCreatedAt"></p>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div id="defaultTodoDetailsModal" class="default-todo-modal">
+        <div class="default-todo-modal-content">
+            <span class="default-todo-modal-close">&times;</span>
+            <h2 id="defaultModalTitle" class="default-todo-modal-title"></h2>
+            <p id="defaultModalDescription" class="default-todo-modal-description"></p>
+            <div id="defaultModalMeta" class="default-todo-modal-meta"></div>
+        </div>
+    </div>
+    
+    
+    <nav class="bottom-nav">
+        <!-- Navigation items will be inserted here by JavaScript -->
+    </nav>
+    
+    <script src="{% static 'todolist/js/todolist/todo.js' %}"></script>
+    <script src="{% static 'todolist/js/todolist/description.js' %}"></script>
+    <script src="{% static 'todolist/js/todolist/animation.js' %}"></script>
+    
+    
+    <script src="{% static 'analytics/js/rank.js' %}"></script>
+    <script src="{% static 'analytics/js/graph.js' %}"></script>
+    <script src="{% static 'todolist/js/navbar.js' %}"></script>
+    <script src="{% static 'todolist/js/todolist/dropdown.js' %}"></script>
+    
+    <script src="{% static 'settings/js/settings.js' %}"></script>
+    
+    <script src="{% static 'settings/js/default-todo.js' %}"></script>
+
+ 
+ 
+
+</body>
+</html>

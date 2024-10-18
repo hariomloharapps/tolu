@@ -1,0 +1,483 @@
+/* Base styles */
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f7;
+    color: #000;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 16px;
+}
+
+/* Header styles */
+.header {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: #f2f2f7;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid #c8c7cc;
+    margin-bottom: 16px;
+}
+
+.back-button {
+    color: #007aff;
+    font-size: 18px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+/* Settings group styles */
+.settings-group {
+    background-color: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.settings-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.settings-item {
+    padding: 12px 15px;
+    border-bottom: 1px solid #c8c7cc;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.settings-item:last-child {
+    border-bottom: none;
+}
+
+.settings-item:active {
+    background-color: #f2f2f7;
+}
+
+.settings-item span {
+    color: #8e8e93;
+}
+
+.section-title {
+    padding: 8px 15px;
+    font-size: 13px;
+    color: #6e6e73;
+    text-transform: uppercase;
+    font-weight: 600;
+    background-color: #f2f2f7;
+}
+
+/* Adjustments for groups without titles */
+.settings-group:first-child .settings-list {
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+
+/* Toggle switch styles */
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 30px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .toggle-slider {
+    background-color: #34c759;
+}
+
+input:checked + .toggle-slider:before {
+    transform: translateX(20px);
+}
+
+/* Custom select styles */
+.custom-select {
+    position: relative;
+    display: inline-block;
+}
+
+.custom-select select {
+    display: none;
+}
+
+.select-selected {
+    background-color: transparent;
+    color: #007aff;
+    padding-right: 20px;
+    cursor: pointer;
+}
+
+.select-selected:after {
+    position: absolute;
+    content: "";
+    top: 50%;
+    right: 0;
+    width: 0;
+    height: 0;
+    border: 5px solid transparent;
+    border-color: #007aff transparent transparent transparent;
+    transform: translateY(-25%);
+}
+
+/* Responsive adjustments */
+@media screen and (min-width: 768px) {
+    .container {
+        max-width: 600px;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    body {
+        font-size: 14px;
+    }
+
+    .header {
+        padding: 8px;
+    }
+
+    .settings-item {
+        padding: 14px 16px;
+    }
+
+    .toggle-switch {
+        width: 45px;
+        height: 25px;
+    }
+
+    .toggle-slider:before {
+        height: 21px;
+        width: 21px;
+    }
+
+    input:checked + .toggle-slider:before {
+        transform: translateX(20px);
+    }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+    }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+    body {
+        background-color: #000;
+        color: #fff;
+    }
+
+    .settings-group {
+        background-color: #1c1c1e;
+    }
+
+    .settings-item {
+        border-bottom-color: #38383a;
+    }
+
+    .toggle-slider {
+        background-color: #636366;
+    }
+
+    input:checked + .toggle-slider {
+        background-color: #30d158;
+    }
+}
+
+
+/* ... (previous CSS remains the same) ... */
+
+/* Confirmation box styles */
+.confirmation-box {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1001;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.confirmation-box.active {
+    opacity: 1;
+}
+
+.confirmation-content {
+    background-color: #fff;
+    border-radius: 14px;
+    padding: 20px;
+    width: 80%;
+    max-width: 300px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.confirmation-box.active .confirmation-content {
+    transform: scale(1);
+}
+
+.confirmation-content h2 {
+    margin-top: 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.confirmation-content p {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.confirmation-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.confirmation-buttons button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.logout-button {
+    background-color: #FF3B30;
+    color: #fff;
+    order: -1;
+}
+
+.cancel-button {
+    background-color: transparent;
+    color: #007aff;
+    border: 1px solid #007aff;
+}
+
+.logout-button:hover, .logout-button:focus {
+    background-color: #FF6B6B;
+}
+
+.cancel-button:hover, .cancel-button:focus {
+    background-color: rgba(0, 122, 255, 0.1);
+}
+
+/* Smooth transitions for all interactive elements */
+.settings-item,
+.toggle-switch,
+.custom-select,
+.back-button,
+button {
+    transition: all 0.3s ease;
+}
+
+/* Consistent border-radius */
+.settings-group,
+.settings-item,
+.toggle-switch,
+.toggle-slider,
+.custom-select,
+.select-selected,
+input[type="checkbox"],
+button {
+    border-radius: 14px;
+}
+
+/* Fade animation */
+.fade-out {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.fade-in {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 375px) {
+    .confirmation-content {
+        width: 90%;
+    }
+
+    .confirmation-buttons button {
+        font-size: 14px;
+    }
+}
+
+
+
+
+/* Notification styles */
+.notification {
+    position: fixed;
+    top: -100px; /* Start off-screen */
+    right: 20px; /* Position on the right side */
+    transform: translateX(0); /* Remove horizontal centering */
+    
+    border-color: #f8f7f4;
+    background-color: #000;
+    color: #fff;
+    padding: 16px 48px 16px 20px;
+    border-radius: 14px;
+    font-size: 18px;
+    font-weight: bold;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    max-width: 400px; /* Set a maximum width */
+    width: auto;
+}
+
+.notification.show {
+    opacity: 1;
+    top: 20px;
+    animation: notificationBounce 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.notification-close {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.notification-close:hover {
+    transform: translateY(-50%) rotate(90deg);
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 600px) {
+    .notification {
+        right: 10px; /* Adjust for smaller screens */
+        left: 10px; /* Stretch across screen width on mobile */
+        max-width: none; /* Allow full width on mobile */
+        font-size: 16px;
+        padding: 14px 44px 14px 18px;
+    }
+    
+    .notification-close {
+        font-size: 20px;
+    }
+}
+
+/* Animations */
+@keyframes notificationBounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+.notification.hide {
+    animation: notificationHide 0.5s forwards;
+}
+
+@keyframes notificationHide {
+    0% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+}
+
+/* Pulsating effect for "Coming Soon" text */
+@keyframes pulsate {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.notification {
+    animation: pulsate 2s infinite;
+}
